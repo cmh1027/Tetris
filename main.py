@@ -61,10 +61,14 @@ class Gameplay(Block, Board):
 			for j in range(columns):
 				if(i % 2 == j % 2):
 					self.bground_grid[i][j] = 8
-		self.width = cellSize * (columns + 12)
+		self.width = cellSize * (columns + 12) + 10
 		self.screen = pygame.display.set_mode((self.width, self.height))
 		self.limit = self.rlim
+		self.slowcount = 0;
+		self.slowflag = False
+		self.currentdelay = None
 		self.initialiseGame()
+
 
 	def updateScore(self, increment):
 		self.score += increment
@@ -76,7 +80,8 @@ class Gameplay(Block, Board):
 		self.lines = initLines
 		self.holdBlock = None
 		self.holdBlock2 = None
-		pygame.time.set_timer(pygame.USEREVENT + 1, int(1000*(0.8**(self.level-1))))
+		self.currentdelay = int(1000*(0.8**(self.level-1)))
+		pygame.time.set_timer(pygame.USEREVENT + 1, self.currentdelay)
 
 	def centreMsg(self, msg):
 		for i, line in enumerate(msg.splitlines()):
@@ -110,13 +115,11 @@ class Gameplay(Block, Board):
 		self.updateScore(linescores[n] * self.level)
 		if(self.lines >= self.level * lvlStep):
 			self.level += 1
-			newdelay = int(1000*(0.8**(self.level-1)))
-			if(newdelay < 100):
-				newdelay = 100
-			if(newdelay > 100):
-				newdelay
+			if self.currentdelay>0:
+				newdelay = int(1000*(0.8**(self.level-1))*2)
 			else:
-				newdelay
+				newdelay = int(1000*(0.8**(self.level-1)))
+			self.currentdelay = newdelay
 			pygame.time.set_timer(pygame.USEREVENT + 1, newdelay)
 
 	def quit(self):
@@ -143,11 +146,14 @@ class Gameplay(Block, Board):
 			'r': lambda:self.initialiseGame(),
 			'ESCAPE': lambda:self.quit(),
 			'p': lambda:self.switchPause(),
-			'h': lambda:self.hold(),
-			'g': lambda:self.hold2(),
+			'g': lambda:self.hold(),
+			'h': lambda:self.hold2(),
 			'RETURN': lambda:self.begin(),
 			'SPACE': lambda:self.fallBottom(),
-			's': lambda:self.rotate()
+			's': lambda:self.rotate(),
+			'1': lambda:self.slowBlock(),
+			'2': lambda:self.removeBlock(),
+			'3': lambda:self.bombBlock()
 		}
 		self.gameover = False
 		self.paused = False
@@ -158,7 +164,15 @@ class Gameplay(Block, Board):
 			self.screen.fill((0, 0, 0))
 			if self.gameover:
 				restart = 0
-				self.centreMsg("""Game Over!\n \n \nYour score is: %d \n\nHit Enter to restart""" % self.score)
+				if self.dif=="easy":
+					self.centreMsg("""< Easy Mode >\n \n \n Game Over!\n \n \nYour score is: %d \n\nHit Enter to restart""" % self.score)
+				if self.dif=="normal":
+					self.centreMsg("""< Normal Mode >\n \n \n Game Over!\n \n \nYour score is: %d \n\nHit Enter to restart""" % self.score)
+				if self.dif=="hard":
+					self.centreMsg("""< Hard Mode >\n \n \n Game Over!\n \n \nYour score is: %d \n\nHit Enter to restart""" % self.score)
+				else:
+					self.centreMsg("""< Hell Mode >\n \n \n Game Over!\n \n \nYour score is: %d \n\nHit Enter to restart""" % self.score)
+
 			else:
 				if self.paused:
 					self.centreMsg(pauseMsg)
@@ -197,7 +211,8 @@ class Gameplay(Block, Board):
 							self.dispMsg("O ", (self.limit + cellSize + 150 + 15*(i+1), cellSize * 13+15))
 					self.dispMsg("Score: %d\n\nDifficulty: %d" % (self.score, self.level), (self.limit + cellSize, cellSize * 9+25))
 					self.dispMsg("r : restart\n\np : pause\n\ng/h : hold\n\ns : rotate\n\nSpace:fall", (self.limit + cellSize, cellSize * 13))
-					self.dispMsg("1 : Slow\n\n2 : Away\n\n3 : Bomb\n\n", (self.limit + cellSize+120, cellSize * 16))
+					self.dispMsg("1 : Slow\n\n2 : Away\n\n3 : Bomb\n\n", (self.limit + cellSize+120, cellSize * 15))
+					self.dispMsg("Interval : %d" % self.currentdelay, (self.limit + cellSize+100, cellSize * 19 + 5))
 					self.renderMatrix(self.bground_grid, (0, trial - 12), False)
 					self.renderMatrix(self.board, (0, trial /2 - 6))
 					emptyness = self.checkRowEmpty(5, self.board)
