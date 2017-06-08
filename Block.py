@@ -42,7 +42,13 @@ class Block(object):
 			self.score += trial - 2
 			while(not self.drop()):
 				pass
-
+	def hold(self):
+		if self.holdBlock==None:
+			self.holdBlock = self.block
+			self.newBlock()
+		else:
+			if not self.checkCollision(self.board, self.holdBlock, (self.blockX, self.blockY)):
+				self.block, self.holdBlock = self.holdBlock, self.block
 	def drop(self):
 		if(self.gameover == False and self.paused == False):
 			self.blockY += 1
@@ -66,17 +72,18 @@ class Block(object):
 			False
 
 	def renderMatrix(self, matrix, offset, flag=True):
-		for y, row in enumerate(matrix):
-			for x, val in enumerate(row):
-				if flag:
-					if val:
-						if(self.score >= 0 and self.level >= 0):
-								pygame.draw.rect(self.screen, colours[6], pygame.Rect((offset[0] +x) * cellSize, (offset[1] + y) * cellSize, cellSize, cellSize), 0)
-								pygame.draw.rect(self.screen, colours[7], pygame.Rect(((offset[0] +x) * cellSize)+1, ((offset[1] + y) * cellSize)+1, cellSize-2, cellSize-2), 0)
-				else:
-					if(self.score>=0 and self.level>=0):
-						pygame.draw.rect(self.screen, [35,35,35], pygame.Rect((offset[0] +x) * cellSize, (offset[1] + y) * cellSize, cellSize, cellSize), 0)
-						pygame.draw.rect(self.screen, [75,75,75], pygame.Rect(((offset[0] +x) * cellSize)+1, ((offset[1] + y) * cellSize)+1, cellSize-2, cellSize-2), 0)
+		if matrix!=None:
+			for y, row in enumerate(matrix):
+				for x, val in enumerate(row):
+					if flag:
+						if val:
+							if(self.score >= 0 and self.level >= 0):
+									pygame.draw.rect(self.screen, colours[6], pygame.Rect((offset[0] +x) * cellSize, (offset[1] + y) * cellSize, cellSize, cellSize), 0)
+									pygame.draw.rect(self.screen, colours[7], pygame.Rect(((offset[0] +x) * cellSize)+1, ((offset[1] + y) * cellSize)+1, cellSize-2, cellSize-2), 0)
+					else:
+						if(self.score>=0 and self.level>=0):
+							pygame.draw.rect(self.screen, [35,35,35], pygame.Rect((offset[0] +x) * cellSize, (offset[1] + y) * cellSize, cellSize, cellSize), 0)
+							pygame.draw.rect(self.screen, [75,75,75], pygame.Rect(((offset[0] +x) * cellSize)+1, ((offset[1] + y) * cellSize)+1, cellSize-2, cellSize-2), 0)
 							
 
 	def checkRowFull(self, clearedRows):

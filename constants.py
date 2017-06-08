@@ -1,4 +1,4 @@
-cellSize, columns, rows, trial = 20, 20, 21, 12
+cellSize, columns, rows, trial = 20, 11, 21, 12
 initLevel = 1
 initScore, initLines, initY, lvlStep, white = 0, 0, 0, 5, 255
 colourfav = (228, 204, 200)

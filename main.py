@@ -15,6 +15,7 @@ class Gameplay(Block, Board):
 		self.rlim = cellSize * columns
 		self.default_font = pygame.font.SysFont("comicsansms", 17)
 		self.nextBlock = tetrisShapes[rand(len(tetrisShapes))]
+		self.holdBlock = None
 		self.height = cellSize * rows
 		self.bground_grid = [[0 for x in range(columns)]for y in range(rows)]
 		for i in range(rows):
@@ -65,7 +66,6 @@ class Gameplay(Block, Board):
 			arg = False
 			self.screen.blit(self.default_font.render(line, arg, (white, white, white), (1, 1, 1)), (x, y))
 			y += 14
-
 	def addClearedLines(self, n):
 		linescores = [0, 100, 100, 100, 100]
 		self.lines = self.lines + n
@@ -105,6 +105,7 @@ class Gameplay(Block, Board):
 			'r': lambda:self.initialiseGame(),
 			'ESCAPE': lambda:self.quit(),
 			'p': lambda:self.switchPause(),
+			'h': lambda:self.hold(),
 			'RETURN': lambda:self.begin(),
 			'SPACE': lambda:self.fallBottom(),
 			's': lambda:self.rotate()
@@ -125,12 +126,15 @@ class Gameplay(Block, Board):
 				else:
 					pygame.draw.line(self.screen, colourfav, (self.limit + 1, 0), (self.limit + 1, self.height - 1))
 					self.dispMsg("\nNext:", (self.limit + cellSize, 2))
-					self.dispMsg("Score: %d\n\nDifficulty: %d" % (self.score, self.level), (self.limit + cellSize, cellSize * 5))
+					self.dispMsg("\nHold:", (self.limit + cellSize, cellSize*4))
+					self.dispMsg("Score: %d\n\nDifficulty: %d" % (self.score, self.level), (self.limit + cellSize, cellSize * 9))
+					self.dispMsg("r : restart\n\np : pause\n\nh : hold\n\ns : rotate\n\nSpace:fall", (self.limit + cellSize, cellSize * 12))
 					self.renderMatrix(self.bground_grid, (0, trial - 12), False)
 					self.renderMatrix(self.board, (0, trial /2 - 6))
 					emptyness = self.checkRowEmpty(5, self.board)
 					self.renderMatrix(self.block, (self.blockX, self.blockY))
 					self.renderMatrix(self.nextBlock, (columns + 1, 2))
+					self.renderMatrix(self.holdBlock, (columns + 1, 6))
 			pygame.display.update()
 			funTime = True
 			for event in pygame.event.get():
