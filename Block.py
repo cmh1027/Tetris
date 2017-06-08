@@ -1,4 +1,5 @@
 from random import randrange as rand
+import random
 import os
 import pygame
 import math
@@ -49,6 +50,13 @@ class Block(object):
 		else:
 			if not self.checkCollision(self.board, self.holdBlock, (self.blockX, self.blockY)):
 				self.block, self.holdBlock = self.holdBlock, self.block
+	def hold2(self):
+		if self.holdBlock2==None:
+			self.holdBlock2 = self.block
+			self.newBlock()
+		else:
+			if not self.checkCollision(self.board, self.holdBlock2, (self.blockX, self.blockY)):
+				self.block, self.holdBlock2 = self.holdBlock2, self.block
 	def drop(self):
 		if(self.gameover == False and self.paused == False):
 			self.blockY += 1
@@ -63,7 +71,21 @@ class Block(object):
 
 	def newBlock(self):
 		self.block = self.nextBlock
-		self.nextBlock = tetrisShapes[rand(len(tetrisShapes))]
+		ran = random.randrange(1000)
+		if self.level<10:
+			if 100-self.level*3<=ran<=150+self.level*3:
+				self.nextBlock = oddtetrisShapes2[rand(len(oddtetrisShapes))]
+			elif 400-self.level*15<=ran<600+self.level*15:
+				self.nextBlock = oddtetrisShapes[rand(len(oddtetrisShapes))]
+			else:
+				self.nextBlock = tetrisShapes[rand(len(tetrisShapes))]
+		else:
+			if 400-self.level*15<=ran<600+self.level*15:
+				self.nextBlock = oddtetrisShapes[rand(len(oddtetrisShapes))]
+			elif 800-self.level*(self.level-10)*6<=ran<900+self.level*(self.level-10)*6:
+				self.nextBlock = oddtetrisShapes2[rand(len(oddtetrisShapes))]
+			else:
+				self.nextBlock = tetrisShapes[rand(len(tetrisShapes))]			
 		self.blockX = int(columns / 3 - len(self.block[0]) / 2 + trial - 7)
 		self.blockY = initY
 		if self.checkCollision(self.board, self.block, (self.blockX, self.blockY)):

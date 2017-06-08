@@ -1,5 +1,4 @@
 cellSize, columns, rows, trial = 20, 11, 21, 12
-initLevel = 1
 initScore, initLines, initY, lvlStep, white = 0, 0, 0, 5, 255
 colourfav = (228, 204, 200)
 pauseMsg = "Paused. Hit P to Resume"
@@ -22,9 +21,39 @@ colours = [
 [36, 34, 36]
 ]
 tetrisShapes = []
-tetrisShapes.append([[1, 2, 3, 1]])
-tetrisShapes.append([[5, 6, 0], [0, 7, 1]])
-tetrisShapes.append([[2, 3], [1, 5]])
-tetrisShapes.append([[0, 6, 0], [7, 1, 2]])
-tetrisShapes.append([[0 ,3, 1], [5, 6, 0]])
-tetrisShapes.append([[7, 1, 2], [0, 0, 3]])
+oddtetrisShapes = []
+oddtetrisShapes2 = []
+tetrisShapes.append([[1, 1, 1, 1]])
+tetrisShapes.append([[1, 1, 0], [0, 1, 1]])
+tetrisShapes.append([[1, 1], [1, 1]])
+tetrisShapes.append([[0, 1, 0], [1, 1, 1]])
+tetrisShapes.append([[0 ,1, 1], [1, 1, 0]])
+tetrisShapes.append([[1, 1, 1], [0, 0, 1]])
+oddtetrisShapes.append([[1, 1, 1, 1], [0, 0, 0, 1]])
+oddtetrisShapes.append([[1, 1, 1, 1], [1, 0, 0, 1]])
+oddtetrisShapes.append([[1, 1, 1, 1], [0, 0, 1, 0]])
+oddtetrisShapes.append([[1, 1, 1, 1], [0, 1, 0, 0]])
+oddtetrisShapes.append([[1, 1, 0, 0], [1, 1, 1, 0]])
+oddtetrisShapes.append([[1, 1, 0, 0], [0, 1, 1, 1]])
+oddtetrisShapes.append([[1, 1, 1, 1, 1]])
+oddtetrisShapes.append([[0, 1, 0], [1, 1, 1], [0, 1, 0]])
+oddtetrisShapes.append([[1, 0, 1], [1, 1, 1]])
+oddtetrisShapes.append([[1, 1, 0], [0, 1, 1], [0, 0, 1]])
+oddtetrisShapes.append([[0, 1, 1], [1, 1, 0], [1, 0, 0]])
+oddtetrisShapes.append([[0, 1, 0], [0, 1, 0], [1, 1, 1]])
+oddtetrisShapes.append([[1, 0, 0], [1, 1, 1], [0, 0, 1]])
+oddtetrisShapes2.append([[1, 1, 1, 1], [1, 0, 0, 1]])
+oddtetrisShapes2.append([[1, 1, 1, 1], [1, 0, 1, 0]])
+oddtetrisShapes2.append([[1, 1, 1, 1], [0, 1, 1, 0]])
+oddtetrisShapes2.append([[1, 1, 1, 1], [1, 1, 0, 0]])
+oddtetrisShapes2.append([[1, 1], [1, 1], [1, 1]])
+oddtetrisShapes2.append([[1, 1, 1], [0, 1, 1], [0, 0, 1]])
+oddtetrisShapes2.append([[1, 0, 0], [1, 1, 1], [0, 1, 0]])
+oddtetrisShapes2.append([[1, 0, 0], [1, 1, 1], [0, 1, 1]])
+oddtetrisShapes2.append([[1, 0, 1], [1, 1, 1], [0, 1, 0]])
+oddtetrisShapes2.append([[1, 0, 1], [1, 1, 1], [0, 0, 1]])
+oddtetrisShapes2.append([[1, 0, 1], [1, 1, 1], [1, 0, 0]])
+oddtetrisShapes2.append([[1, 0, 0, 0, 0], [1, 1, 1, 1, 1]])
+oddtetrisShapes2.append([[0, 0, 0, 0, 1], [1, 1, 1, 1, 1]])
+oddtetrisShapes2.append([[0, 0, 1, 1, 1], [1, 1, 1, 0, 0]])
+oddtetrisShapes2.append([[1, 1, 1, 0, 0], [0, 0, 1, 1, 1]])
