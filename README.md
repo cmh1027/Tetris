@@ -19,6 +19,7 @@ python main.py
 * SPACE: Drop to bottom instantly
 * Enter: Restart after game ends
 * R: Reset game
+* H: Hold block
 * S: Rotate block
 * P: Pause game
 * ESC: Quit Window
