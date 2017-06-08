@@ -6,7 +6,7 @@ As level goes up, eccentric blocks will be appear and speed will rapidly increas
 
 ### implementation
 There are 4 difficulties (Unrelated to capitalization)
-* Easy : python main.py easy / python main.py // 3 Items each, Start at Level 1
+* Easy : python main.py easy , python main.py // 3 Items each, Start at Level 1
 * Normal : python main.py normal // 2 Items each, Start at Level 5
 * Hard : python main.py hard // 1 Items each, Start at Level 10
 * Hell : python main.py hell // No items, Start at Level 15
