@@ -11,6 +11,8 @@ There are 4 difficulties (Unrelated to capitalization)
 * Hard : python main.py hard // 1 Items each, Start at Level 10
 * Hell : python main.py hell // No items, Start at Level 15
 
+Other invalid argv will be regarded as easy mode
+
 ### Files
 * Block.py : Control blocks and check if a row is full
 * Board.py : Check the entire board for block movement
