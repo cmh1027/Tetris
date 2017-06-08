@@ -11,21 +11,41 @@ class Gameplay(Block, Board):
 	def __init__(self):
 		if len(sys.argv)==1:
 			self.dif = 'easy' # difficulty
+			self.level = 1
+			self.slow=3
+			self.remove=3
+			self.bomb=3
 		else:
 			if sys.argv[1].lower() == 'easy':
 				self.dif = 'easy'
 				self.level = 1
+				self.slow=3
+				self.remove=3
+				self.bomb=3
 			elif sys.argv[1].lower() == 'normal':
 				self.dif = 'normal'
 				self.level = 5
+				self.slow=2
+				self.remove=2
+				self.bomb=2
 			elif sys.argv[1].lower() == 'hard':
 				self.dif = 'hard'
 				self.level = 10
+				self.slow=1
+				self.remove=1
+				self.bomb=1
 			elif sys.argv[1].lower() == 'hell':
 				self.dif = 'hell'
 				self.level = 15
+				self.slow=0
+				self.remove=0
+				self.bomb=0
 			else:
 				self.dif = 'easy'
+				self.level=1
+				self.slow=3
+				self.remove=3
+				self.bomb=3
 		pygame.init()
 		rowscounter = 0
 		pygame.key.set_repeat(250, 25)
@@ -45,9 +65,6 @@ class Gameplay(Block, Board):
 		self.screen = pygame.display.set_mode((self.width, self.height))
 		self.limit = self.rlim
 		self.initialiseGame()
-		self.slow=3
-		self.remove=3
-		self.bomb=3
 
 	def updateScore(self, increment):
 		self.score += increment
