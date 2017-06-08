@@ -19,11 +19,13 @@ class Gameplay(Block, Board):
 			if sys.argv[1].lower() == 'easy':
 				self.dif = 'easy'
 				self.level = 1
+				self.start = 1
 				self.slow=3
 				self.remove=3
 				self.bomb=3
 			elif sys.argv[1].lower() == 'normal':
 				self.dif = 'normal'
+				self.start = 5
 				self.level = 5
 				self.slow=2
 				self.remove=2
@@ -31,17 +33,20 @@ class Gameplay(Block, Board):
 			elif sys.argv[1].lower() == 'hard':
 				self.dif = 'hard'
 				self.level = 10
+				self.start = 10
 				self.slow=1
 				self.remove=1
 				self.bomb=1
 			elif sys.argv[1].lower() == 'hell':
 				self.dif = 'hell'
 				self.level = 15
+				self.start = 15
 				self.slow=0
 				self.remove=0
 				self.bomb=0
 			else:
 				self.dif = 'easy'
+				self.start = 1
 				self.level=1
 				self.slow=3
 				self.remove=3
@@ -129,9 +134,9 @@ class Gameplay(Block, Board):
 		linescores = [0, 100, 250, 450, 700, 1000]
 		self.lines = self.lines + n
 		self.updateScore(linescores[n] * self.level)
-		if(self.lines >= self.level * lvlStep):
+		if(self.lines >= (self.level-self.start+1) * lvlStep):
 			self.level += 1
-			if self.currentdelay>0:
+			if self.slowcount>0:
 				newdelay = int(1000*(0.8**(self.level-1))*2)
 			else:
 				newdelay = int(1000*(0.8**(self.level-1)))

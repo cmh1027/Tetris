@@ -102,6 +102,7 @@ class Block(object):
 		if not bomb:
 			self.block = self.nextBlock
 			ran = random.randrange(1000)
+			ran=777
 			if self.level<10:
 				if 100-self.level*5<=ran<=125+self.level*5:
 					self.nextBlock = oddtetrisShapes2[rand(len(oddtetrisShapes))]
