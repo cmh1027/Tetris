@@ -23,6 +23,12 @@ Other invalid argv will be regarded as easy mode
 * normal.mp3 : bgm for normal mode (Tetris(Tengen) - Troika)
 * hard.mp3 : bgm for hard mode (Dungeon and Fighter - Luke battle theme)
 * hell.mp3 : bgm for hell mode (The Matrix  Soundtrack- Juno Reactor Vs Don Davis - Navras)
+* blockfull.wav : soundeffect when row is full
+* bomb.wav : soundeffect for bomb item
+* slow.wav : soundeffect for slow item
+* fast.wav : soundeffect when effect of slow item ends
+* skip.wav : soundeffect for skip item
+* levelup.wav : soundeffect for levelup
 
 #### Controls
 * Left: Move left
