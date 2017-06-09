@@ -9,6 +9,7 @@ from constants import *
 
 class Gameplay(Block, Board):
 	def __init__(self):
+		pygame.mixer.init(44100, -16,2,2048)
 		if len(sys.argv)==1:
 			self.dif = 'easy' # difficulty
 			self.level = 1
@@ -18,6 +19,7 @@ class Gameplay(Block, Board):
 			self.start = 1
 		else:
 			if sys.argv[1].lower() == 'easy':
+				pygame.mixer.music.load('easy.mp3')
 				self.dif = 'easy'
 				self.level = 1
 				self.start = 1
@@ -25,6 +27,7 @@ class Gameplay(Block, Board):
 				self.remove=3
 				self.bomb=3
 			elif sys.argv[1].lower() == 'normal':
+				pygame.mixer.music.load('normal.mp3')
 				self.dif = 'normal'
 				self.start = 5
 				self.level = 5
@@ -32,6 +35,7 @@ class Gameplay(Block, Board):
 				self.remove=2
 				self.bomb=2
 			elif sys.argv[1].lower() == 'hard':
+				pygame.mixer.music.load('hard.mp3')
 				self.dif = 'hard'
 				self.level = 10
 				self.start = 10
@@ -39,6 +43,7 @@ class Gameplay(Block, Board):
 				self.remove=1
 				self.bomb=1
 			elif sys.argv[1].lower() == 'hell':
+				pygame.mixer.music.load('hell.mp3')
 				self.dif = 'hell'
 				self.level = 15
 				self.start = 15
@@ -46,6 +51,7 @@ class Gameplay(Block, Board):
 				self.remove=0
 				self.bomb=0
 			else:
+				pygame.mixer.music.load('easy.mp3')
 				self.dif = 'easy'
 				self.start = 1
 				self.level=1
@@ -80,6 +86,7 @@ class Gameplay(Block, Board):
 		self.score += increment
 
 	def initialiseGame(self):
+		pygame.mixer.music.rewind()
 		self.board = self.newBoard()
 		self.newBlock()
 		self.score = initScore
@@ -115,6 +122,7 @@ class Gameplay(Block, Board):
 			self.level=15
 			self.start=15
 		pygame.time.set_timer(pygame.USEREVENT + 1, self.currentdelay)
+		pygame.mixer.music.play(-1)
 
 	def centreMsg(self, msg):
 		for i, line in enumerate(msg.splitlines()):
@@ -196,6 +204,7 @@ class Gameplay(Block, Board):
 		while trial:
 			self.screen.fill((0, 0, 0))
 			if self.gameover:
+				pygame.mixer.music.stop()
 				restart = 0
 				if self.dif=="easy":
 					self.centreMsg("""< Easy Mode >\n \n \n Game Over!\n \n \nYour score is: %d \n\nHit Enter to restart""" % self.score)
@@ -243,7 +252,7 @@ class Gameplay(Block, Board):
 							self.dispMsg("O ", (self.limit + cellSize + 150 + 15*(i+1), cellSize * 13+15))
 					self.dispMsg("Score: %d\n\nDifficulty: %d" % (self.score, self.level), (self.limit + cellSize, cellSize * 9+25))
 					self.dispMsg("r : restart\n\np : pause\n\ng/h : hold\n\ns : rotate\n\nSpace:fall", (self.limit + cellSize, cellSize * 13))
-					self.dispMsg("1 : Slow\n\n2 : Away\n\n3 : Bomb\n\n", (self.limit + cellSize+120, cellSize * 15))
+					self.dispMsg("1 : Slow\n\n2 : Skip\n\n3 : Bomb\n\n", (self.limit + cellSize+120, cellSize * 15))
 					self.dispMsg("Interval : %d" % self.currentdelay, (self.limit + cellSize+100, cellSize * 19 + 5))
 					self.renderMatrix(self.bground_grid, (0, trial - 12), False)
 					self.renderMatrix(self.board, (0, trial /2 - 6))
