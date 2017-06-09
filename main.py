@@ -15,6 +15,7 @@ class Gameplay(Block, Board):
 			self.slow=3
 			self.remove=3
 			self.bomb=3
+			self.start = 1
 		else:
 			if sys.argv[1].lower() == 'easy':
 				self.dif = 'easy'
