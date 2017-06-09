@@ -101,7 +101,6 @@ class Block(object):
 	def newBlock(self, bomb=False):
 		if not bomb:
 			self.block = self.nextBlock
-			print(self.block)
 			ran = random.randrange(1000)
 			if self.level<10:
 				if 100-self.level*5<=ran<=125+self.level*5:
