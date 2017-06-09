@@ -188,13 +188,12 @@ class Gameplay(Block, Board):
 				restart = 0
 				if self.dif=="easy":
 					self.centreMsg("""< Easy Mode >\n \n \n Game Over!\n \n \nYour score is: %d \n\nHit Enter to restart""" % self.score)
-				if self.dif=="normal":
+				elif self.dif=="normal":
 					self.centreMsg("""< Normal Mode >\n \n \n Game Over!\n \n \nYour score is: %d \n\nHit Enter to restart""" % self.score)
-				if self.dif=="hard":
+				elif self.dif=="hard":
 					self.centreMsg("""< Hard Mode >\n \n \n Game Over!\n \n \nYour score is: %d \n\nHit Enter to restart""" % self.score)
-				else:
+				elif self.dif=="hell":
 					self.centreMsg("""< Hell Mode >\n \n \n Game Over!\n \n \nYour score is: %d \n\nHit Enter to restart""" % self.score)
-
 			else:
 				if self.paused:
 					self.centreMsg(pauseMsg)

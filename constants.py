@@ -25,6 +25,12 @@ oddtetrisShapes = []
 oddtetrisShapes2 = []
 bombShape = [[[2]]]
 tetrisShapes.append([[1, 1, 1, 1]])
+tetrisShapes.append([[1, 0, 0], [1, 1, 1]])
+tetrisShapes.append([[0, 0, 1], [1, 1, 1]])
+tetrisShapes.append([[1, 1], [1, 1]])
+tetrisShapes.append([[0, 1, 1], [1, 1, 0]])
+tetrisShapes.append([[1, 1, 0], [0, 1, 1]])
+tetrisShapes.append([[0, 1, 0], [1, 1, 1]])
 oddtetrisShapes.append([[1, 1, 1, 1], [0, 0, 0, 1]])
 oddtetrisShapes.append([[1, 1, 1, 1], [1, 0, 0, 1]])
 oddtetrisShapes.append([[1, 1, 1, 1], [0, 0, 1, 0]])
