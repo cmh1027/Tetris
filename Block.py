@@ -60,10 +60,12 @@ class Block(object):
 	def removeBlock(self):
 		if self.remove>0:
 			self.remove -= 1
+			pygame.mixer.Channel(5).play(self.skip)
 			self.newBlock();
 	def slowBlock(self):
 		if self.slow>0:
 			if not self.slowflag:
+				pygame.mixer.Channel(6).play(self.slowdown)
 				self.slow -= 1
 				self.slowcount = 5
 				self.slowflag = True
@@ -86,10 +88,12 @@ class Block(object):
 					self.addClearedLines(clearedRows)
 					if self.slowcount>0:
 						if self.slowcount==1:
+							pygame.mixer.Channel(6).play(self.fast)
 							pygame.time.set_timer(pygame.USEREVENT + 1, int(self.currentdelay/2))
 							self.slowflag = False
 						self.slowcount -= 1
 				else:
+					pygame.mixer.Channel(4).play(self.explode)
 					for i in range(-2, 3):
 						for k in range(-2, 3):
 							if self.blockX + i >= 0 and self.blockY + k >=0 and self.blockX + i <= columns-1 and self.blockY + k <= rows-1:
@@ -103,9 +107,9 @@ class Block(object):
 			self.block = self.nextBlock
 			ran = random.randrange(1000)
 			if self.level<10:
-				if 100-self.level*5<=ran<=125+self.level*5:
+				if 100-self.level*4<=ran<=125+self.level*4:
 					self.nextBlock = oddtetrisShapes2[rand(len(oddtetrisShapes))]
-				elif 400-self.level*15<=ran<450+self.level*15:
+				elif 400-self.level*9<=ran<450+self.level*9:
 					self.nextBlock = oddtetrisShapes[rand(len(oddtetrisShapes))]
 				else:
 					self.nextBlock = tetrisShapes[rand(len(tetrisShapes))]

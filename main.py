@@ -10,6 +10,10 @@ from constants import *
 class Gameplay(Block, Board):
 	def __init__(self):
 		pygame.mixer.init(44100, -16,2,2048)
+		pygame.mixer.init(44100, -16,3,2048)
+		pygame.mixer.init(44100, -16,4,2048)
+		pygame.mixer.init(44100, -16,5,2048)
+		pygame.mixer.init(44100, -16,6,2048)
 		if len(sys.argv)==1:
 			self.dif = 'easy' # difficulty
 			self.level = 1
@@ -58,6 +62,12 @@ class Gameplay(Block, Board):
 				self.slow=3
 				self.remove=3
 				self.bomb=3
+		self.blockfull = pygame.mixer.Sound('blockfull.wav')
+		self.levelup = pygame.mixer.Sound('levelup.wav')
+		self.explode = pygame.mixer.Sound('bomb.wav')
+		self.skip = pygame.mixer.Sound('skip.wav')
+		self.slowdown = pygame.mixer.Sound('slow.wav')
+		self.fast = pygame.mixer.Sound('fast.wav')
 		pygame.init()
 		rowscounter = 0
 		pygame.key.set_repeat(250, 25)
@@ -153,8 +163,11 @@ class Gameplay(Block, Board):
 	def addClearedLines(self, n):
 		linescores = [0, 100, 250, 450, 700, 1000]
 		self.lines = self.lines + n
+		if n>0:
+			pygame.mixer.Channel(3).play(self.blockfull)
 		self.updateScore(linescores[n] * self.level)
 		if(self.lines >= (self.level-self.start+1) * lvlStep):
+			pygame.mixer.Channel(3).play(self.levelup)
 			self.level += 1
 			if self.slowcount>0:
 				newdelay = int(1000*(0.8**(self.level-1))*2)
