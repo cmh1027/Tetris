@@ -120,7 +120,7 @@ class Block(object):
 					self.nextBlock = oddtetrisShapes2[rand(len(oddtetrisShapes))]
 				else:
 					self.nextBlock = tetrisShapes[rand(len(tetrisShapes))]
-			if 777+self.level<=ran<827-self.level:
+			if 787<=ran<812:
 				self.nextBlock = bombShape[0]
 			self.blockX = int(columns / 3 - len(self.block[0]) / 2 + trial - 7)
 			self.blockY = initY
