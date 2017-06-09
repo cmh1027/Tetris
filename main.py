@@ -86,23 +86,34 @@ class Gameplay(Block, Board):
 		self.lines = initLines
 		self.holdBlock = None
 		self.holdBlock2 = None
+		self.slowcount = 0;
+		self.slowflag = False
+		self.currentdelay = None
 		self.currentdelay = int(1000*(0.8**(self.level-1)))
 		if self.dif=="easy":
 			self.slow=3
 			self.remove=3
 			self.bomb=3
+			self.level=1
+			self.start=1
 		if self.dif=="normal":
 			self.slow=2
 			self.remove=2
 			self.bomb=2
+			self.level=5
+			self.start=5
 		if self.dif=="hard":
 			self.slow=1
 			self.remove=1
 			self.bomb=1
+			self.level=10
+			self.start=10
 		if self.dif=="hell":
 			self.slow=0
 			self.remove=0
 			self.bomb=0
+			self.level=15
+			self.start=15
 		pygame.time.set_timer(pygame.USEREVENT + 1, self.currentdelay)
 
 	def centreMsg(self, msg):
