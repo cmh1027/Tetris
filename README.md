@@ -19,6 +19,10 @@ Other invalid argv will be regarded as easy mode
 * Board.py : Check the entire board for block movement
 * constants.py : Constants
 * main.py : General Controller
+* easy.mp3 : bgm for easy mode (Tetris(Tengen) - Bradinsky)
+* normal.mp3 : bgm for normal mode (Tetris(Tengen) - Troika)
+* hard.mp3 : bgm for hard mode (Dungeon and Fighter - Luke battle theme)
+* hell.mp3 : bgm for hell mode (The Matrix  Soundtrack- Juno Reactor Vs Don Davis - Navras)
 
 #### Controls
 * Left: Move left
