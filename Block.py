@@ -89,7 +89,8 @@ class Block(object):
 					if self.slowcount>0:
 						if self.slowcount==1:
 							pygame.mixer.Channel(6).play(self.fast)
-							pygame.time.set_timer(pygame.USEREVENT + 1, int(self.currentdelay/2))
+							self.currentdelay=int(self.currentdelay/2)
+							pygame.time.set_timer(pygame.USEREVENT + 1, self.currentdelay)
 							self.slowflag = False
 						self.slowcount -= 1
 				else:
