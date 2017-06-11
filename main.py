@@ -107,9 +107,7 @@ class Gameplay(Block, Board):
 		self.holdBlock = None
 		self.holdBlock2 = None
 		self.slowcount = 0;
-		self.slowflag = False
-		self.currentdelay = None
-		self.currentdelay = int(1000*(0.8**(self.level-1)))
+		self.slowflag = Fals
 		if self.dif=="easy":
 			self.slow=3
 			self.remove=3
@@ -134,6 +132,7 @@ class Gameplay(Block, Board):
 			self.bomb=0
 			self.level=15
 			self.start=15
+		self.currentdelay = int(1000*(0.8**(self.level-1)))
 		pygame.time.set_timer(pygame.USEREVENT + 1, self.currentdelay)
 		pygame.mixer.music.play(-1)
 
