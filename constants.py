@@ -23,7 +23,7 @@ colours = [
 tetrisShapes = []
 oddtetrisShapes = []
 oddtetrisShapes2 = []
-bombShape = [[[2]]]
+bombShape = [[[2]], [[3]]]
 tetrisShapes.append([[1, 1, 1, 1]])
 tetrisShapes.append([[1, 0, 0], [1, 1, 1]])
 tetrisShapes.append([[0, 0, 1], [1, 1, 1]])

@@ -80,7 +80,7 @@ class Block(object):
 		if(self.gameover == False and self.paused == False):
 			self.blockY += 1
 			if self.checkCollision(self.board, self.block, (self.blockX, self.blockY)):
-				if self.block != [[2]]:
+				if self.block != [[2]] and self.block != [[3]]:
 					self.board = self.joinMatrices(self.board, self.block, (self.blockX, self.blockY))
 					self.newBlock()
 					clearedRows = 0
@@ -93,6 +93,11 @@ class Block(object):
 							pygame.time.set_timer(pygame.USEREVENT + 1, self.currentdelay)
 							self.slowflag = False
 						self.slowcount -= 1
+				elif self.block == [[3]]:
+					pygame.mixer.Channel(4).play(self.explode)
+					for i in range(rows):
+						self.board[i][self.blockX] = 0
+					self.newBlock()					
 				else:
 					pygame.mixer.Channel(4).play(self.explode)
 					for i in range(-2, 3):
@@ -107,22 +112,16 @@ class Block(object):
 		if not bomb:
 			self.block = self.nextBlock
 			ran = random.randrange(1000)
-			if self.level<10:
-				if 100-self.level*4<=ran<=125+self.level*4:
-					self.nextBlock = oddtetrisShapes2[rand(len(oddtetrisShapes))]
-				elif 400-self.level*9<=ran<450+self.level*9:
-					self.nextBlock = oddtetrisShapes[rand(len(oddtetrisShapes))]
-				else:
-					self.nextBlock = tetrisShapes[rand(len(tetrisShapes))]
+			if 100-self.level*4<=ran<=125+self.level*4:
+				self.nextBlock = oddtetrisShapes2[rand(len(oddtetrisShapes))]
+			elif 400-self.level*9<=ran<450+self.level*9:
+				self.nextBlock = oddtetrisShapes[rand(len(oddtetrisShapes))]
 			else:
-				if 400-self.level*15<=ran<600+self.level*15:
-					self.nextBlock = oddtetrisShapes[rand(len(oddtetrisShapes))]
-				elif 800-self.level*(self.level-10)*6<=ran<900+self.level*(self.level-10)*6:
-					self.nextBlock = oddtetrisShapes2[rand(len(oddtetrisShapes))]
-				else:
-					self.nextBlock = tetrisShapes[rand(len(tetrisShapes))]
+				self.nextBlock = tetrisShapes[rand(len(tetrisShapes))]
 			if 787<=ran<812:
 				self.nextBlock = bombShape[0]
+			if 815<=ran<830:
+				self.nextBlock = bombShape[1]
 			self.blockX = int(columns / 3 - len(self.block[0]) / 2 + trial - 7)
 			self.blockY = initY
 		else:
@@ -137,7 +136,7 @@ class Block(object):
 
 	def renderMatrix(self, matrix, offset, flag=True):
 		if matrix!=None:
-			if matrix!=[[2]]:
+			if matrix!=[[2]] and matrix!=[[3]]:
 				for y, row in enumerate(matrix):
 					for x, val in enumerate(row):
 						if flag:
@@ -149,6 +148,11 @@ class Block(object):
 							if(self.score>=0 and self.level>=0):
 								pygame.draw.rect(self.screen, [35,35,35], pygame.Rect((offset[0] +x) * cellSize, (offset[1] + y) * cellSize, cellSize, cellSize), 0)
 								pygame.draw.rect(self.screen, [75,75,75], pygame.Rect(((offset[0] +x) * cellSize)+1, ((offset[1] + y) * cellSize)+1, cellSize-2, cellSize-2), 0)
+			elif matrix==[[3]]:
+				for y, row in enumerate(matrix):
+					for x, val in enumerate(row):
+						if(self.score >= 0 and self.level >= 0):
+							pygame.draw.rect(self.screen, colours[1], pygame.Rect((offset[0] +x) * cellSize, (offset[1] + y) * cellSize, cellSize, cellSize), 0)				
 			else:
 				for y, row in enumerate(matrix):
 					for x, val in enumerate(row):

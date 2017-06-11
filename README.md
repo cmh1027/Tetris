@@ -46,3 +46,15 @@ Other invalid argv will be regarded as easy mode
 * 1: Item1 - Slow the block (Double a time interval for 5 phases)
 * 2: Item2 - Block removal (Skip the block)
 * 3: Item3 - Block Bomb (Remove blocks around the bomb block - 5x5)
+
+#### Blocks
+* 4 pieces blocks
+* 5 pieces blocks
+* 6 pieces blocks
+* Bomb block(Red color)
+* Column Bomb block(skyblue color) - destroy a column blocks where it's dropped
+
+#### Strategy
+1. You can hold 2 bomb blocks
+2. Be careful when you use bomb blocks. It can ruin your block disposition.
+3. Difficulty depends on rows you destoryed. If you want to high score, try to destroy rows simultaneously as many as you can! It will give you more score.
