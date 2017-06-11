@@ -15,6 +15,7 @@ class Gameplay(Block, Board):
 		pygame.mixer.init(44100, -16,5,2048)
 		pygame.mixer.init(44100, -16,6,2048)
 		if len(sys.argv)==1:
+			pygame.mixer.music.load('./music/easy.mp3')
 			self.dif = 'easy' # difficulty
 			self.level = 1
 			self.slow=3
@@ -23,7 +24,7 @@ class Gameplay(Block, Board):
 			self.start = 1
 		else:
 			if sys.argv[1].lower() == 'easy':
-				pygame.mixer.music.load('easy.mp3')
+				pygame.mixer.music.load('./music/easy.mp3')
 				self.dif = 'easy'
 				self.level = 1
 				self.start = 1
@@ -31,7 +32,7 @@ class Gameplay(Block, Board):
 				self.remove=3
 				self.bomb=3
 			elif sys.argv[1].lower() == 'normal':
-				pygame.mixer.music.load('normal.mp3')
+				pygame.mixer.music.load('./music/normal.mp3')
 				self.dif = 'normal'
 				self.start = 5
 				self.level = 5
@@ -39,7 +40,7 @@ class Gameplay(Block, Board):
 				self.remove=2
 				self.bomb=2
 			elif sys.argv[1].lower() == 'hard':
-				pygame.mixer.music.load('hard.mp3')
+				pygame.mixer.music.load('./music/hard.mp3')
 				self.dif = 'hard'
 				self.level = 10
 				self.start = 10
@@ -47,7 +48,7 @@ class Gameplay(Block, Board):
 				self.remove=1
 				self.bomb=1
 			elif sys.argv[1].lower() == 'hell':
-				pygame.mixer.music.load('hell.mp3')
+				pygame.mixer.music.load('./music/hell.mp3')
 				self.dif = 'hell'
 				self.level = 15
 				self.start = 15
@@ -55,19 +56,19 @@ class Gameplay(Block, Board):
 				self.remove=0
 				self.bomb=0
 			else:
-				pygame.mixer.music.load('easy.mp3')
+				pygame.mixer.music.load('./music/easy.mp3')
 				self.dif = 'easy'
 				self.start = 1
 				self.level=1
 				self.slow=3
 				self.remove=3
 				self.bomb=3
-		self.blockfull = pygame.mixer.Sound('blockfull.wav')
-		self.levelup = pygame.mixer.Sound('levelup.wav')
-		self.explode = pygame.mixer.Sound('bomb.wav')
-		self.skip = pygame.mixer.Sound('skip.wav')
-		self.slowdown = pygame.mixer.Sound('slow.wav')
-		self.fast = pygame.mixer.Sound('fast.wav')
+		self.blockfull = pygame.mixer.Sound('./music/blockfull.wav')
+		self.levelup = pygame.mixer.Sound('./music/levelup.wav')
+		self.explode = pygame.mixer.Sound('./music/bomb.wav')
+		self.skip = pygame.mixer.Sound('./music/skip.wav')
+		self.slowdown = pygame.mixer.Sound('./music/slow.wav')
+		self.fast = pygame.mixer.Sound('./music/fast.wav')
 		pygame.init()
 		rowscounter = 0
 		pygame.key.set_repeat(250, 25)
@@ -264,7 +265,7 @@ class Gameplay(Block, Board):
 						for i in range(self.bomb):
 							self.dispMsg("O ", (self.limit + cellSize + 150 + 15*(i+1), cellSize * 13+15))
 					self.dispMsg("Score: %d\n\nDifficulty: %d" % (self.score, self.level), (self.limit + cellSize, cellSize * 9+25))
-					self.dispMsg("r : restart\n\np : pause\n\ng/h : hold\n\ns : rotate\n\nSpace:fall", (self.limit + cellSize, cellSize * 13))
+					self.dispMsg("r : restart\n\np : pause\n\ng/h : hold\n\ns : rotate\n\nSpace : fall", (self.limit + cellSize, cellSize * 13))
 					self.dispMsg("1 : Slow\n\n2 : Skip\n\n3 : Bomb\n\n", (self.limit + cellSize+120, cellSize * 15))
 					self.dispMsg("Interval : %d" % self.currentdelay, (self.limit + cellSize+100, cellSize * 19 + 5))
 					self.renderMatrix(self.bground_grid, (0, trial - 12), False)
