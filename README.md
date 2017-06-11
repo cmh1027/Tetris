@@ -29,6 +29,7 @@ Other invalid argv will be regarded as easy mode
 * fast.wav : soundeffect when effect of slow item ends
 * skip.wav : soundeffect for skip item
 * levelup.wav : soundeffect for levelup
+* over.wav : soundeffect for gameover
 
 #### Controls
 * Left: Move left
