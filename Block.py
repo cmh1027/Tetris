@@ -131,6 +131,7 @@ class Block(object):
 			self.blockY = initY
 		if self.checkCollision(self.board, self.block, (self.blockX, self.blockY)):
 			self.gameover = True
+			pygame.mixer.Channel(7).play(self.over)
 		else:
 			False
 

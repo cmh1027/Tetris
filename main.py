@@ -14,6 +14,7 @@ class Gameplay(Block, Board):
 		pygame.mixer.init(44100, -16,4,2048)
 		pygame.mixer.init(44100, -16,5,2048)
 		pygame.mixer.init(44100, -16,6,2048)
+		pygame.mixer.init(44100, -16,7,2048)
 		if len(sys.argv)==1:
 			pygame.mixer.music.load('./music/easy.mp3')
 			self.dif = 'easy' # difficulty
@@ -69,6 +70,7 @@ class Gameplay(Block, Board):
 		self.skip = pygame.mixer.Sound('./music/skip.wav')
 		self.slowdown = pygame.mixer.Sound('./music/slow.wav')
 		self.fast = pygame.mixer.Sound('./music/fast.wav')
+		self.over = pygame.mixer.Sound('./music/over.wav')
 		pygame.init()
 		rowscounter = 0
 		pygame.key.set_repeat(250, 25)
