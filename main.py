@@ -107,7 +107,7 @@ class Gameplay(Block, Board):
 		self.holdBlock = None
 		self.holdBlock2 = None
 		self.slowcount = 0;
-		self.slowflag = Fals
+		self.slowflag = False
 		if self.dif=="easy":
 			self.slow=3
 			self.remove=3
