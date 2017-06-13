@@ -59,3 +59,5 @@ You can get each items per 7500 scores. (Maximum 4)
 1. You can hold 2 bomb blocks
 2. Be careful when you use bomb blocks. It can ruin your block disposition.
 3. Difficulty depends on rows you destoryed. If you want to high score, try to destroy rows simultaneously as many as you can! It will give you more score.
+4. Bomb item can be utilized as removal item
+5. Use hold technique when you face hard time!
