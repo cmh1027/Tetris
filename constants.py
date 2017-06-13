@@ -1,5 +1,5 @@
 cellSize, columns, rows, trial = 20, 11, 21, 12
-initScore, initLines, initY, lvlStep, white = 0, 0, 0, 5, 255
+initScore, initLines, initY, lvlStep, white = 0, 0, 0, 9, 255
 colourfav = (228, 204, 200)
 pauseMsg = "Paused. Hit P to Resume"
 lvlDebuggerMsg = "Debug level"
