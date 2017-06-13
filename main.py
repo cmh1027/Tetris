@@ -141,7 +141,7 @@ class Gameplay(Block, Board):
 		self.updateScore(linescores[n] * self.level)
 		if int(self.score/7500)>=self.currentitem:
 			self.currentitem+=1
-			if self.slow<4
+			if self.slow<4:
 				self.slow+=1
 			if self.remove<4:
 				self.remove+=1
