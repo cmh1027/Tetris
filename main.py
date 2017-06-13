@@ -1,6 +1,7 @@
 from random import randrange as rand
 from Board import Board
 from Block import Block
+import pickle
 import os
 import pygame
 import math
@@ -176,8 +177,10 @@ class Gameplay(Block, Board):
 
 	def switchPause(self):
 		if(self.paused == True):
+			pygame.mixer.music.unpause()
 			self.paused = False
 		else:
+			pygame.mixer.music.pause()
 			self.paused = True
 
 	def run(self):
