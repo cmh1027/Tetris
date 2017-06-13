@@ -46,6 +46,7 @@ Other invalid argv will be regarded as easy mode
 * 1: Item1 - Slow the block (Double a time interval for 5 phases)
 * 2: Item2 - Block removal (Skip the block)
 * 3: Item3 - Block Bomb (Remove blocks around the bomb block - 5x5)
+You can get each items per 7500 scores. (Maximum 4)
 
 #### Blocks
 * 4 pieces blocks
