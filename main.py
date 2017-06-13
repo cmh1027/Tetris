@@ -79,7 +79,7 @@ class Gameplay(Block, Board):
 		self.slowcount = 0;
 		self.slowflag = False
 		if self.dif=="easy":
-			self.slow=4
+			self.slow=3
 			self.remove=3
 			self.bomb=3
 			self.level=1
