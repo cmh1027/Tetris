@@ -71,6 +71,8 @@ class Gameplay(Block, Board):
 
 	def initialiseGame(self):
 		pygame.mixer.music.rewind()
+		self.border = rand(len(colours))
+		self.inside = 9-self.border
 		self.board = self.newBoard()
 		self.score = initScore
 		self.lines = initLines
@@ -149,6 +151,10 @@ class Gameplay(Block, Board):
 			if self.bomb<4:
 				self.bomb+=1
 		if(self.lines >= (self.level-self.start+1) * lvlStep):
+			self.border = rand(len(colours))
+			self.inside = 9-self.border
+			while self.inside == self.border:
+				self.inside = rand(len(colours))
 			pygame.mixer.Channel(3).play(self.levelup)
 			self.level += 1
 			if self.slowcount>0:

@@ -4,22 +4,11 @@ colourfav = (228, 204, 200)
 pauseMsg = "Paused. Hit P to Resume"
 lvlDebuggerMsg = "Debug level"
 tetrisFact = []
-colours = [
-[86, 108, 48],
-[0, 240, 240],
-[149, 160, 217],
-[0, 0, 240],
-[36, 34, 37],
-[240, 160, 2],
-[254, 86, 85],
-[240, 240, 0],
-[55, 69, 79],
-[0, 240, 0],
-[121, 107, 244],
-[160, 0, 240],
-[149, 160, 217],
-[36, 34, 36]
-]
+colours = []
+for i in range(72, 230, 18):
+	for k in range(72, 230, 18):
+		for j in range(72, 230, 18):
+			colours.append([i, k, j])
 tetrisShapes = []
 oddtetrisShapes = []
 oddtetrisShapes2 = []

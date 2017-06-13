@@ -142,8 +142,8 @@ class Block(object):
 						if flag:
 							if val:
 								if(self.score >= 0 and self.level >= 0):
-										pygame.draw.rect(self.screen, colours[6], pygame.Rect((offset[0] +x) * cellSize, (offset[1] + y) * cellSize, cellSize, cellSize), 0)
-										pygame.draw.rect(self.screen, colours[7], pygame.Rect(((offset[0] +x) * cellSize)+1, ((offset[1] + y) * cellSize)+1, cellSize-2, cellSize-2), 0)
+									pygame.draw.rect(self.screen, colours[self.inside], pygame.Rect((offset[0] +x) * cellSize, (offset[1] + y) * cellSize, cellSize, cellSize), 0)
+									pygame.draw.rect(self.screen, colours[self.border], pygame.Rect(((offset[0] +x) * cellSize)+2, ((offset[1] + y) * cellSize)+2, cellSize-4, cellSize-4), 0)
 						else:
 							if(self.score>=0 and self.level>=0):
 								pygame.draw.rect(self.screen, [35,35,35], pygame.Rect((offset[0] +x) * cellSize, (offset[1] + y) * cellSize, cellSize, cellSize), 0)
@@ -152,12 +152,12 @@ class Block(object):
 				for y, row in enumerate(matrix):
 					for x, val in enumerate(row):
 						if(self.score >= 0 and self.level >= 0):
-							pygame.draw.rect(self.screen, colours[1], pygame.Rect((offset[0] +x) * cellSize, (offset[1] + y) * cellSize, cellSize, cellSize), 0)				
+							pygame.draw.rect(self.screen, [0, 240, 240], pygame.Rect((offset[0] +x) * cellSize, (offset[1] + y) * cellSize, cellSize, cellSize), 0)				
 			else:
 				for y, row in enumerate(matrix):
 					for x, val in enumerate(row):
 						if(self.score >= 0 and self.level >= 0):
-							pygame.draw.rect(self.screen, colours[6], pygame.Rect((offset[0] +x) * cellSize, (offset[1] + y) * cellSize, cellSize, cellSize), 0)		
+							pygame.draw.rect(self.screen, [255, 0, 0], pygame.Rect((offset[0] +x) * cellSize, (offset[1] + y) * cellSize, cellSize, cellSize), 0)		
 
 							
 
