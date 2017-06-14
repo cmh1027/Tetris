@@ -143,7 +143,7 @@ class Gameplay(Block, Board):
 		if n>0:
 			pygame.mixer.Channel(3).play(self.blockfull)
 		self.updateScore(linescores[n] * self.level)
-		if int(self.score/7500)>=self.currentitem:
+		if int(self.score/10000)>=self.currentitem:
 			self.currentitem+=1
 			if self.slow<4:
 				self.slow+=1
