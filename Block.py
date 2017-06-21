@@ -35,9 +35,30 @@ class Block(object):
 	def rotate(self):
 		if(self.gameover == False and self.paused == False):
 			newBlock = [[self.block[x][y] for x in range(len(self.block))] for y in range(len(self.block[0]) - 1, -1, -1)]
-			if not self.checkCollision(self.board, newBlock, (self.blockX, self.blockY)):
-				self.block = newBlock
-
+			for i in range(0, 2):
+				if self.blockX + i < columns:
+					if not self.checkCollision(self.board, newBlock, (self.blockX+i, self.blockY)):
+						self.blockX = self.blockX+i
+						self.block = newBlock
+						return
+			for i in range(0, -2, -1):
+				if self.blockX + i >= 0:
+					if not self.checkCollision(self.board, newBlock, (self.blockX+i, self.blockY)):
+						self.blockX = self.blockX+i
+						self.block = newBlock
+						return
+			for i in range(2, 5):
+				if self.blockX + i < columns:
+					if not self.checkCollision(self.board, newBlock, (self.blockX+i, self.blockY)):
+						self.blockX = self.blockX+i
+						self.block = newBlock
+						return
+			for i in range(-2, -5, -1):
+				if self.blockX + i >= 0:
+					if not self.checkCollision(self.board, newBlock, (self.blockX+i, self.blockY)):
+						self.blockX = self.blockX+i
+						self.block = newBlock
+						return
 	def fallBottom(self):
 		if(self.gameover == False and self.paused == False):
 			self.score += trial - 2
@@ -50,6 +71,10 @@ class Block(object):
 		else:
 			if not self.checkCollision(self.board, self.holdBlock, (self.blockX, self.blockY)):
 				self.block, self.holdBlock = self.holdBlock, self.block
+			else:
+				newBlock = [[self.holdBlock[x][y] for x in range(len(self.holdBlock))] for y in range(len(self.holdBlock[0]) - 1, -1, -1)]
+				if not self.checkCollision(self.board, newBlock, (self.blockX, self.blockY)):
+					self.block, self.holdBlock = newBlock, self.block
 	def hold2(self):
 		if self.holdBlock2==None:
 			self.holdBlock2 = self.block
@@ -57,6 +82,10 @@ class Block(object):
 		else:
 			if not self.checkCollision(self.board, self.holdBlock2, (self.blockX, self.blockY)):
 				self.block, self.holdBlock2 = self.holdBlock2, self.block
+			else:
+				newBlock = [[self.holdBlock2[x][y] for x in range(len(self.holdBlock2))] for y in range(len(self.holdBlock2[0]) - 1, -1, -1)]
+				if not self.checkCollision(self.board, newBlock, (self.blockX, self.blockY)):
+					self.block, self.holdBlock2 = newBlock, self.block
 	def removeBlock(self):
 		if self.remove>0:
 			self.remove -= 1
@@ -75,7 +104,8 @@ class Block(object):
 		if self.bomb>0:
 			self.bomb -= 1
 			self.newBlock(True)
-
+	def ghost_toggle(self):
+		self.ghost = not self.ghost
 	def drop(self):
 		if(self.gameover == False and self.paused == False):
 			self.blockY += 1
@@ -109,23 +139,29 @@ class Block(object):
 		return False
 
 	def newBlock(self, bomb=False):
-		if not bomb:
-			self.block = self.nextBlock
-			ran = random.randrange(1000)
-			if 100-self.level*3<=ran<=125+self.level*3:
-				self.nextBlock = oddtetrisShapes2[rand(len(oddtetrisShapes))]
-			elif 400-self.level*6<=ran<450+self.level*6:
-				self.nextBlock = oddtetrisShapes[rand(len(oddtetrisShapes))]
+		if self.gameType == "Advanced":
+			if not bomb:
+				self.block = self.nextBlock
+				ran = random.randrange(1000)
+				if 100-self.level*3<=ran<=125+self.level*3:
+					self.nextBlock = oddtetrisShapes2[rand(len(oddtetrisShapes))]
+				elif 400-self.level*6<=ran<450+self.level*6:
+					self.nextBlock = oddtetrisShapes[rand(len(oddtetrisShapes))]
+				else:
+					self.nextBlock = tetrisShapes[rand(len(tetrisShapes))]
+				if 787<=ran<789:
+					self.nextBlock = bombShape[0]
+				if 815<=ran<820:
+					self.nextBlock = bombShape[1]
+				self.blockX = int(columns / 3 - len(self.block[0]) / 2 + trial - 7)
+				self.blockY = initY
 			else:
-				self.nextBlock = tetrisShapes[rand(len(tetrisShapes))]
-			if 787<=ran<802:
-				self.nextBlock = bombShape[0]
-			if 815<=ran<825:
-				self.nextBlock = bombShape[1]
-			self.blockX = int(columns / 3 - len(self.block[0]) / 2 + trial - 7)
-			self.blockY = initY
+				self.block = bombShape[0]
+				self.blockX = int(columns / 3 - len(self.block[0]) / 2 + trial - 7)
+				self.blockY = initY
 		else:
-			self.block = bombShape[0]
+			self.block = self.nextBlock
+			self.nextBlock = tetrisShapes[rand(len(tetrisShapes))]
 			self.blockX = int(columns / 3 - len(self.block[0]) / 2 + trial - 7)
 			self.blockY = initY
 		if self.checkCollision(self.board, self.block, (self.blockX, self.blockY)):
@@ -134,16 +170,22 @@ class Block(object):
 		else:
 			False
 
-	def renderMatrix(self, matrix, offset, flag=True):
+	def renderMatrix(self, matrix, offset, flag=True, hold=True):
 		if matrix!=None:
 			if matrix!=[[2]] and matrix!=[[3]]:
 				for y, row in enumerate(matrix):
 					for x, val in enumerate(row):
 						if flag:
 							if val:
-								if(self.score >= 0 and self.level >= 0):
-									pygame.draw.rect(self.screen, colours[self.inside], pygame.Rect((offset[0] +x) * cellSize, (offset[1] + y) * cellSize, cellSize, cellSize), 0)
-									pygame.draw.rect(self.screen, colours[self.border], pygame.Rect(((offset[0] +x) * cellSize)+2, ((offset[1] + y) * cellSize)+2, cellSize-4, cellSize-4), 0)
+								if hold:
+									if(self.score >= 0 and self.level >= 0):
+										pygame.draw.rect(self.screen, colours[self.inside], pygame.Rect((offset[0] +x) * cellSize, (offset[1] + y) * cellSize, cellSize, cellSize), 0)
+										pygame.draw.rect(self.screen, colours[self.border], pygame.Rect(((offset[0] +x) * cellSize)+2, ((offset[1] + y) * cellSize)+2, cellSize-4, cellSize-4), 0)
+								else:
+									if(self.score >= 0 and self.level >= 0):
+										pygame.draw.rect(self.screen, colours[self.inside], pygame.Rect((offset[0] +x*0.75) * cellSize, (offset[1] + y*0.75) * cellSize, cellSize*0.75, cellSize*0.75), 0)
+										pygame.draw.rect(self.screen, colours[self.border], pygame.Rect(((offset[0] +x*0.75) * cellSize)+2, ((offset[1] + y*0.75) * cellSize+1.5), cellSize*0.75-4, cellSize*0.75-4), 0)										
+
 						else:
 							if(self.score>=0 and self.level>=0):
 								pygame.draw.rect(self.screen, [35,35,35], pygame.Rect((offset[0] +x) * cellSize, (offset[1] + y) * cellSize, cellSize, cellSize), 0)
@@ -151,15 +193,32 @@ class Block(object):
 			elif matrix==[[3]]:
 				for y, row in enumerate(matrix):
 					for x, val in enumerate(row):
-						if(self.score >= 0 and self.level >= 0):
-							pygame.draw.rect(self.screen, [0, 240, 240], pygame.Rect((offset[0] +x) * cellSize, (offset[1] + y) * cellSize, cellSize, cellSize), 0)				
+						if hold:
+							if(self.score >= 0 and self.level >= 0):
+								pygame.draw.rect(self.screen, [0, 240, 240], pygame.Rect((offset[0] +x) * cellSize, (offset[1] + y) * cellSize, cellSize, cellSize), 0)
+						else:
+							if(self.score >= 0 and self.level >= 0):
+								pygame.draw.rect(self.screen, [0, 240, 240], pygame.Rect((offset[0] +x*0.75) * cellSize, (offset[1] + y*0.75) * cellSize, cellSize*0.75, cellSize*0.75), 0)							
 			else:
 				for y, row in enumerate(matrix):
 					for x, val in enumerate(row):
+						if hold:
+							if(self.score >= 0 and self.level >= 0):
+								pygame.draw.rect(self.screen, [255, 0, 0], pygame.Rect((offset[0] +x) * cellSize, (offset[1] + y) * cellSize, cellSize, cellSize), 0)
+						else:
+							if(self.score >= 0 and self.level >= 0):
+								pygame.draw.rect(self.screen, [255, 0, 0], pygame.Rect((offset[0] +x*0.75) * cellSize, (offset[1] + y*0.75) * cellSize, cellSize*0.75, cellSize*0.75), 0)			
+	
+	def renderGhostMatrix(self, matrix, offset):
+		if matrix!=None:
+			while not self.checkCollision(self.board, matrix, (offset[0], offset[1]+1)):
+				offset = (offset[0], offset[1]+1)
+			for y, row in enumerate(matrix):
+				for x, val in enumerate(row):
+					if val:
 						if(self.score >= 0 and self.level >= 0):
-							pygame.draw.rect(self.screen, [255, 0, 0], pygame.Rect((offset[0] +x) * cellSize, (offset[1] + y) * cellSize, cellSize, cellSize), 0)		
-
-							
+							pygame.draw.rect(self.screen, [96,96,96], pygame.Rect((offset[0] +x) * cellSize, (offset[1] + y) * cellSize, cellSize, cellSize), 0)
+							pygame.draw.rect(self.screen, [45,45,45], pygame.Rect(((offset[0] +x) * cellSize)+2, ((offset[1] + y) * cellSize)+2, cellSize-4, cellSize-4), 0)
 
 	def checkRowFull(self, clearedRows):
 		while 1:
