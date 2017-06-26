@@ -75,7 +75,6 @@ class Gameplay(Block, Board):
 			with open('record.bin','wb') as f:
 				pickle.dump(recordList,f)
 			self.record = recordList
-
 		else:
 			with open('record.bin','rb') as f:
 				self.record=pickle.load(f)
@@ -415,8 +414,6 @@ class Gameplay(Block, Board):
 
 	def quit(self):
 		pygame.display.update()
-		with open('record.bin','wb') as f:
-			pickle.dump(self.record,f)
 		sys.exit()
 
 	def begin(self):
@@ -424,8 +421,6 @@ class Gameplay(Block, Board):
 			self.gameover = False
 			self.paused = False
 			self.screentype = 0
-			with open('record.bin','wb') as f:
-				pickle.dump(self.record,f)
 			self.main()
 
 	def switchPause(self):
@@ -769,7 +764,11 @@ class Gameplay(Block, Board):
 				elif event.type == pygame.KEYDOWN:
 					for key in keyBindings:
 						if event.key == eval("pygame.K_"+key):
-							keyBindings[key]()
+							if event.key == pygame.K_ESCAPE:
+								keyBindings[key]()
+							else:
+								if self.screentype == 5:
+									keyBindings[key]()
 
 	def screen_select_load(self):
 		self.selectNum = 0
@@ -1048,6 +1047,8 @@ class Gameplay(Block, Board):
 									self.record[p][q][self.lvlStep-5][0][2] = self.level
 									self.record[p][q][self.lvlStep-5][0][1] = self.score
 									self.record[p][q][self.lvlStep-5][0][0] = self.name
+									with open('record.bin','wb') as f:
+										pickle.dump(self.record,f)
 									save = True
 								self.dispMsg(" 1st     " + str(i[0]), (60, y+add*plus))
 								self.dispMsg(str(i[1]), (215, y+add*plus))
@@ -1067,6 +1068,8 @@ class Gameplay(Block, Board):
 									self.record[p][q][self.lvlStep-5][1][2] = self.level
 									self.record[p][q][self.lvlStep-5][1][1] = self.score
 									self.record[p][q][self.lvlStep-5][1][0] = self.name
+									with open('record.bin','wb') as f:
+										pickle.dump(self.record,f)
 									save = True
 								self.dispMsg("2nd     " + str(i[0]), (60, y+add*plus))
 								self.dispMsg(str(i[1]), (215, y+add*plus))
@@ -1083,6 +1086,8 @@ class Gameplay(Block, Board):
 									self.record[p][q][self.lvlStep-5][2][2] = self.level
 									self.record[p][q][self.lvlStep-5][2][1] = self.score
 									self.record[p][q][self.lvlStep-5][2][0] = self.name
+									with open('record.bin','wb') as f:
+										pickle.dump(self.record,f)
 									save = True
 								self.dispMsg("3rd     " + str(i[0]), (60, y+add*plus))
 								self.dispMsg(str(i[1]), (215, y+add*plus))
@@ -1096,6 +1101,8 @@ class Gameplay(Block, Board):
 									self.record[p][q][self.lvlStep-5][3][2] = self.level
 									self.record[p][q][self.lvlStep-5][3][1] = self.score
 									self.record[p][q][self.lvlStep-5][3][0] = self.name
+									with open('record.bin','wb') as f:
+										pickle.dump(self.record,f)
 									save = True
 								self.dispMsg("4th     " + str(i[0]), (60, y+add*plus))
 								self.dispMsg(str(i[1]), (215, y+add*plus))
@@ -1106,6 +1113,8 @@ class Gameplay(Block, Board):
 									self.record[p][q][self.lvlStep-5][4][2] = self.level
 									self.record[p][q][self.lvlStep-5][4][1] = self.score
 									self.record[p][q][self.lvlStep-5][4][0] = self.name
+									with open('record.bin','wb') as f:
+										pickle.dump(self.record,f)
 									save = True
 								self.dispMsg("5th     " + str(i[0]), (60, y+add*plus))
 								self.dispMsg(str(i[1]), (215, y+add*plus))
@@ -1117,6 +1126,8 @@ class Gameplay(Block, Board):
 									highscore = 1
 									self.record[p][q][self.lvlStep-5][0][0] = self.name
 									self.record[p][q][self.lvlStep-5][0][2] = self.level
+									with open('record.bin','wb') as f:
+										pickle.dump(self.record,f)
 									save = True
 							elif plus == 1:
 								if not save:
@@ -1124,6 +1135,8 @@ class Gameplay(Block, Board):
 									highscore = 2
 									self.record[p][q][self.lvlStep-5][1][0] = self.name
 									self.record[p][q][self.lvlStep-5][1][2] = self.level
+									with open('record.bin','wb') as f:
+										pickle.dump(self.record,f)
 									save = True
 							elif plus == 2:
 								if not save:
@@ -1131,6 +1144,8 @@ class Gameplay(Block, Board):
 									highscore = 3
 									self.record[p][q][self.lvlStep-5][2][0] = self.name
 									self.record[p][q][self.lvlStep-5][2][2] = self.level
+									with open('record.bin','wb') as f:
+										pickle.dump(self.record,f)
 									save = True
 							elif plus == 3:
 								if not save:
@@ -1138,6 +1153,8 @@ class Gameplay(Block, Board):
 									highscore = 4
 									self.record[p][q][self.lvlStep-5][3][0] = self.name
 									self.record[p][q][self.lvlStep-5][3][2] = self.level
+									with open('record.bin','wb') as f:
+										pickle.dump(self.record,f)
 									save = True
 							else:
 								if not save:
@@ -1145,6 +1162,8 @@ class Gameplay(Block, Board):
 									highscore = 5
 									self.record[p][q][self.lvlStep-5][4][0] = self.name
 									self.record[p][q][self.lvlStep-5][4][2] = self.level
+									with open('record.bin','wb') as f:
+										pickle.dump(self.record,f)
 									save = True
 						plus += 1
 				except:
